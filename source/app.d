@@ -1,7 +1,10 @@
 import std.stdio;
 import std.datetime.systime : Clock;
 import std.process : execute;
+import std.traits : isMutable;
 import std.typecons : Flag, No, Yes;
+import std.traits : isMutable, isSomeString;
+import std.range : ElementType, ElementEncodingType;
 
 version(Windows) {}
 else
@@ -59,6 +62,8 @@ void main(string[] args)
 
 void updatePidTable(const string filename)
 {
+	import std.algorithm.iteration : splitter;
+	import std.algorithm.searching : startsWith;
 	import std.conv : to;
 	import std.string : stripLeft;
 
