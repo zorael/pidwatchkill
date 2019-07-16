@@ -77,8 +77,11 @@ void updatePidTable(const string filename)
 	foreach (immutable pidLine; pidList)
 	{
 		string line = pidLine;  // mutable
+
+		if (!line.length) break;
 		immutable cmd = line.nom(' ');
 		line = line.stripLeft();
+		if (!line.length) break;
 		immutable pid = line.nom(' ');
 
 		if (pid !in pidTime)
