@@ -70,7 +70,7 @@ void updatePidTable(const string filename)
 	immutable tasklist = execute([ "tasklist", "/FI", "IMAGENAME eq " ~filename ]);
 
 	auto pidList = tasklist.output.splitter("\n");
-	while (!pidList.front.startsWith(filename)) pidList.popFront();
+	while (!pidList.empty && !pidList.front.startsWith(filename)) pidList.popFront();
 	if (pidList.empty) return;
 
 	foreach (immutable pidLine; pidList)
