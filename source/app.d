@@ -23,7 +23,7 @@ void main(string[] args)
 {
 	if (args.length != 2)
 	{
-		writeln("Usage: %s [process name]", args[0]);
+		writefln("Usage: %s [process name]", args[0]);
 		return;
 	}
 
