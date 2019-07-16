@@ -76,8 +76,8 @@ void updatePidTable(const string filename)
 	{
 		string line = pidLine;  // mutable
 		immutable cmd = line.nom(' ');
-		immutable rest = line.stripLeft();
-		immutable pid = rest.nom(' ');
+		line = line.stripLeft();
+		immutable pid = line.nom(' ');
 
 		if (pid !in pidTime)
 		{
