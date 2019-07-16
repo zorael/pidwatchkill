@@ -1,6 +1,6 @@
 import std.stdio;
 import std.datetime.systime : Clock;
-import std.process : execute;
+import std.process : exec;
 import std.typecons : Flag, No, Yes;
 
 version(Windows) {}
@@ -49,6 +49,9 @@ void main(string[] args)
 			pidTime.remove(pid);
 		}
 	}
+
+	import core.thread : Thread;
+	import core.time : seconds;
 
 	Thread.sleep(sleepTime.seconds);
 }
