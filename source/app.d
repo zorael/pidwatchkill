@@ -42,7 +42,7 @@ void main(string[] args)
 			{
 				writeln("Killing ", pid);
 				stdout.flush();
-				immutable taskkill = execute([ "taskkill", pid ]);
+				immutable taskkill = execute([ "taskkill", "/PID", pid ]);
 				if (taskkill.status != 0) writeln("NON-ZERO RETURN");
 				toRemove ~= pid;
 			}
