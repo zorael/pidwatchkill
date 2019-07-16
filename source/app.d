@@ -67,7 +67,7 @@ void updatePidTable(const string filename)
 	import std.conv : to;
 	import std.string : stripLeft;
 
-	immutable tasklist = execute([ "tasklist", "/FI", "IMAGENAME", "eq", filename ]);
+	immutable tasklist = execute([ "tasklist", "/FI", "IMAGENAME eq " ~filename ]);
 
 	auto pidList = tasklist.output.splitter("\n");
 	while (!pidList.front.startsWith(filename)) pidList.popFront();
