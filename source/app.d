@@ -1,6 +1,6 @@
 import std.stdio;
 import std.datetime.systime : Clock;
-import std.process : exec;
+import std.process : execute;
 import std.typecons : Flag, No, Yes;
 
 version(Windows) {}
@@ -38,7 +38,7 @@ void main(string[] args)
 			if ((now - timestamp) > timeoutTime)
 			{
 				writeln("Killing ", pid);
-				immutable taskkill = exec("taskkill " ~ pid);
+				immutable taskkill = execute("taskkill " ~ pid);
 				if (taskkill.status != 0) writeln("NON-ZERO RETURN");
 				toRemove ~= pid;
 			}
@@ -62,7 +62,7 @@ void updatePidTable(const string filename)
 	import std.conv : to;
 	import std.string : stripLeft;
 
-	immutable tasklist = exec("tasklist /FI IMAGENAME eq " ~ filename);
+	immutable tasklist = execute("tasklist /FI IMAGENAME eq " ~ filename);
 
 	auto pidList = tasklist.output.splitter("\n");
 	while (!pidList.front.startsWith(filename)) pidList.popFront();
