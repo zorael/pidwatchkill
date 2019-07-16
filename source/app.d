@@ -41,6 +41,7 @@ void main(string[] args)
 			if ((now - timestamp) > timeoutTime)
 			{
 				writeln("Killing ", pid);
+				stdout.flush();
 				immutable taskkill = execute([ "taskkill", pid ]);
 				if (taskkill.status != 0) writeln("NON-ZERO RETURN");
 				toRemove ~= pid;
@@ -83,6 +84,7 @@ void updatePidTable(const string filename)
 		if (pid !in pidTime)
 		{
 			writeln("Saw new pid ", pid);
+			stdout.flush();
 			pidTime[pid] = Clock.currTime.toUnixTime;
 		}
 	}
