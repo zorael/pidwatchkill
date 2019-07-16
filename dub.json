@@ -1,0 +1,7 @@
+{
+	"name": "pidwatchkill",
+	"description": "Process watcher and killer",
+	"authors": [ "JR" ],
+	"copyright": "Copyright © 2019, JR",
+	"license": "MIT"
+}
