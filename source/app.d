@@ -1,4 +1,7 @@
 import std.stdio;
+import std.datetime.systime : Clock;
+import std.process : execute;
+import std.typecons : Flag, No, Yes;
 
 version(Windows) {}
 else
@@ -13,11 +16,19 @@ enum sleepTime = 10;  // seconds
 enum timeoutTime = 60;  // seconds
 
 
-void main()
+void main(string[] args)
 {
+	if (args.length != 2)
+	{
+		writeln("Usage: %s [process name]", args[0]);
+		return;
+	}
+
+	immutable filename = args[1];
+
 	while (true)
 	{
-		updatePidTable();
+		updatePidTable(filename);
 
 		immutable now = Clock.currTime.toUnixTime;
 		string[] toRemove;
@@ -27,7 +38,8 @@ void main()
 			if ((now - timestamp) > timeoutTime)
 			{
 				writeln("Killing ", pid);
-				exec("taskkill " ~ pid);
+				immutable taskkill = exec("taskkill " ~ pid);
+				if (taskkill.status != 0) writeln("NON-ZERO RETURN");
 				toRemove ~= pid;
 			}
 		}
@@ -45,8 +57,6 @@ void main()
 void updatePidTable(const string filename)
 {
 	import std.conv : to;
-	import std.datetime.systime : Clock;
-	import std.process : execute;
 	import std.string : stripLeft;
 
 	immutable tasklist = exec("tasklist /FI IMAGENAME eq " ~ filename);
